@@ -6,7 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "check:viewports": "node scripts/viewport-check.mjs",
+    "test": "playwright test",
+    "test:unit": "playwright test --project=unit",
+    "test:e2e": "playwright test --project=e2e",
+    "generate:art": "node scripts/generate-art.mjs"
   },
   "dependencies": {
     "@paypal/react-paypal-js": "^8.8.1",
@@ -19,11 +26,15 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-google-recaptcha": "^3.1.0",
+    "server-only": "^0.0.1",
     "stripe": "^17.5.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "1.56",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.24",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",

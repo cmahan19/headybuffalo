@@ -1,50 +1,77 @@
-// app/search/page.tsx
-"use client";  // Add this line at the very top
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ProductGrid } from "../components/ProductCard";
+import EmptyStateGlow from "../components/art/EmptyStateGlow";
+import { publishedCategories, searchProducts } from "@/lib/catalog";
 
-import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
-
-const allProducts = [
-  { id: 1, name: 'Featured Product 1', image: '/featured1.jpg', price: '$40' },
-  { id: 2, name: 'Featured Product 2', image: '/featured2.jpg', price: '$45' },
-  { id: 3, name: 'Eco-friendly Bottle', image: '/bottle.jpg', price: '$30' },
-  { id: 4, name: 'Organic Cotton Shirt', image: '/shirt.jpg', price: '$25' },
-];
-
-const SearchResults: React.FC = () => {
-  const searchParams = useSearchParams();
-  const query = searchParams.get('query');
-  const [filteredProducts, setFilteredProducts] = useState([]);
-
-  useEffect(() => {
-    if (query) {
-      const searchQuery = query.toLowerCase();
-      const results = allProducts.filter((product) =>
-        product.name.toLowerCase().includes(searchQuery)
-      );
-      setFilteredProducts(results);
-    }
-  }, [query]);
-
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-4">Search Results for "{query}"</h2>
-
-      {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {filteredProducts.map((product) => (
-            <div key={product.id} className="bg-white shadow-md rounded-lg p-4">
-              <img src={product.image} alt={product.name} className="w-full h-40 object-cover rounded" />
-              <h3 className="mt-2 text-lg font-semibold">{product.name}</h3>
-              <p className="text-gray-600">{product.price}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No products found for "{query}".</p>
-      )}
-    </div>
-  );
+export const metadata: Metadata = {
+  title: "Search",
+  robots: { index: false, follow: true },
 };
 
-export default SearchResults;
+export default async function SearchPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string | string[]; query?: string | string[] }>;
+}) {
+  const sp = await searchParams;
+  const raw = sp.q ?? sp.query ?? "";
+  const q = (Array.isArray(raw) ? raw[0] : raw).slice(0, 100);
+  const results = searchProducts(q);
+
+  return (
+    <div className="container-page py-8 sm:py-12">
+      <h1 className="text-display-sm sm:text-display-md">Search</h1>
+      <form action="/search" role="search" className="mt-6 flex max-w-xl gap-2">
+        <label htmlFor="search-q" className="sr-only">
+          Search products
+        </label>
+        <input
+          id="search-q"
+          name="q"
+          type="search"
+          defaultValue={q}
+          placeholder="Search products"
+          autoFocus={!q}
+          className="field flex-1 rounded-full px-5"
+        />
+        <button type="submit" className="btn-primary">
+          Search
+        </button>
+      </form>
+
+      <div className="mt-8" aria-live="polite">
+        {q ? (
+          results.length > 0 ? (
+            <>
+              <p className="mb-4 text-sm text-hb-ink/70">
+                {results.length} result{results.length === 1 ? "" : "s"} for “{q}”
+              </p>
+              <ProductGrid products={results} />
+            </>
+          ) : (
+            <EmptyStateGlow
+              title={`No products match “${q}”`}
+              actions={
+                <>
+                  {publishedCategories().map((c) => (
+                    <Link key={c.slug} href={`/categories/${c.slug}`} className="btn-secondary">
+                      {c.name}
+                    </Link>
+                  ))}
+                  <Link href="/shop" className="btn-primary">
+                    Browse the shop
+                  </Link>
+                </>
+              }
+            >
+              Try a shorter search, or browse the shop.
+            </EmptyStateGlow>
+          )
+        ) : (
+          <p className="text-hb-ink/70">Search by product name or category.</p>
+        )}
+      </div>
+    </div>
+  );
+}

@@ -1,24 +1,25 @@
-// Path: app/checkout/cancel/page.tsx
+import type { Metadata } from "next";
+import Link from "next/link";
+import { site } from "@/lib/site";
 
-"use client";
-
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-
-const CancelPage = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    alert("Payment canceled. Please try again.");
-    router.push("/checkout"); // Redirect back to the checkout page
-  }, [router]);
-
-  return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold">Payment Canceled</h1>
-      <p className="mt-4">Your payment was canceled. Please try again later or contact support if you have any issues.</p>
-    </div>
-  );
+export const metadata: Metadata = {
+  title: "Checkout canceled",
+  robots: { index: false, follow: false },
 };
 
-export default CancelPage;
+export default function CancelPage() {
+  return (
+    <div className="container-page max-w-2xl py-16 text-center">
+      <h1 className="text-display-sm">Checkout canceled</h1>
+      <p className="mt-3 text-hb-ink/75">No payment was taken. Your cart is saved, so you can pick up where you left off.</p>
+      <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <Link href="/cart" className="btn-primary">
+          Return to cart
+        </Link>
+        <a href={site.phone.href} className="btn-secondary">
+          Order by phone: {site.phone.display}
+        </a>
+      </div>
+    </div>
+  );
+}

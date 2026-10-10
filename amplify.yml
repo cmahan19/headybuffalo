@@ -1,0 +1,20 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        # Amplify only exposes environment variables to the server runtime when they are written to
+        # .env.production at build time. List every prefix the app reads on the server.
+        - env | grep -e ^STRIPE_ -e ^SMTP_ -e ^EMAIL_ -e ^CONTACT_ -e ^NEXT_PUBLIC_ -e ^ADMIN_ -e ^HB_ -e ^MARKETPLACE_ -e ^SUBSCRIPTIONS_ -e ^AFFILIATE_ -e ^NEWSLETTER_ >> .env.production || true
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - .next/cache/**/*
+      - node_modules/**/*
