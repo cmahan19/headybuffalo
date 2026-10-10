@@ -130,7 +130,7 @@ photo).
 
 ## Phase A: Audit and color strategy ✅
 
-- **Audit:** [`COLORFUL_MARKETPLACE_AUDIT.md`](COLORFUL_MARKETPLACE_AUDIT.md) covers the stack, products
+- **Audit:** [`SITE_AUDIT.md`](SITE_AUDIT.md) covers the stack, products
   (0 active, 6 hidden drafts), checkout, image problems, and the missing capabilities (no subscriptions,
   sellers, or click tracking). **Key blocker:** no database, auth, or storage exists; the owner must
   choose a provider (recommended: Supabase).
@@ -147,19 +147,19 @@ photo).
 - **Deferred docs:** the concept catalog, subscription, marketplace, and affiliate plans are written in
   Phases D–G, because they depend on the provider decision.
 
-**Next: Phase B.** Tie-dye visual system as code-generated SVG/CSS art (`TieDyeBackground`,
+**Next: Phase B.** Colorful visual system as code-generated SVG/CSS art (background,
 `SwirlGradient`, `ColorBurst`, `RainbowDivider`, `CollectionColorBanner`, `DoodleAccent`, badges,
 colorful empty/loading states). Migrate the homepage, header accents, collection modules, CTAs, and
 empty states. Keep shopping surfaces solid and readable.
 
-## Corrective phase: visible tie-dye transformation, concepts, and program foundations ✅
+## Corrective phase: visible color transformation, concepts, and program foundations ✅
 
-Root cause of "nothing visible": Phase B had never been built (see [TIE_DYE_FAILURE_ANALYSIS.md](TIE_DYE_FAILURE_ANALYSIS.md)).
+Root cause of "nothing visible": Phase B had never been built.
 Delivered:
 - **Generated art:** 30 assets from `scripts/generate-art.mjs` (seeded procedural SVG rasterized by sharp;
   metadata in `src/lib/art-manifest.json`). They include the hero, 6 banners, 2 bursts, 10 concept
   backgrounds, the OG background, 9 stickers, and the sticker sheet.
-- **Tie-dye components** (`src/app/components/tiedye/`), used on `/`, `/shop`, `/ideas`, `/cart`, 404,
+- **Visual components** (since replaced by `src/app/components/art/`), used on `/`, `/shop`, `/ideas`, `/cart`, 404,
   search, product pages, header, and footer.
 - **Exactly 10 concepts** (`src/lib/concepts.ts`), shown publicly on `/ideas` and the homepage module
   (noindex, no purchase paths) and privately at `/admin/product-concepts` (status, gate, fields,
@@ -171,7 +171,7 @@ Delivered:
   **subscriptions**, and **affiliate click tracking**: all built and all flagged OFF.
 - **Tests:** Playwright unit and e2e suites (`npm test`), including an axe scan.
 
-Verification and routes: [COLORFUL_MARKETPLACE_VERIFICATION.md](COLORFUL_MARKETPLACE_VERIFICATION.md).
+Verification and routes: [VERIFICATION.md](VERIFICATION.md).
 
 ## Design refresh: black chrome + natural, more DIY products ✅
 
@@ -182,7 +182,7 @@ Verification and routes: [COLORFUL_MARKETPLACE_VERIFICATION.md](COLORFUL_MARKETP
   code or public pages (enforced by tests).
 - Added 10 hand-made DIY concepts (11–20) with internal build guides, shown in admin and
   `docs/DIY_PRODUCT_CONCEPTS.md`.
-- Verified: build ✅, contrast ✅, 67/67 tests ✅. Details are in `COLORFUL_MARKETPLACE_VERIFICATION.md`.
+- Verified: build ✅, contrast ✅, 67/67 tests ✅. Details are in `VERIFICATION.md`.
 
 ## Shop relaunch: made-to-order catalog, 30 products, illustrations, new copy, AWS hosting ✅
 
@@ -200,3 +200,24 @@ Verification and routes: [COLORFUL_MARKETPLACE_VERIFICATION.md](COLORFUL_MARKETP
 - **Hosting:** AWS Amplify recommended (`amplify.yml`, `docs/HOSTING_AND_COSTS.md`). The social image is now a
   static file, so no edge runtime is required.
 - Verified: build ✅, 79/79 tests ✅, no overflow or broken images at 375/768/1440px.
+
+## Maintenance: security upgrades, cleanup, CI ✅
+
+- **Security:**
+  - Next.js 15.1.6 → **15.5.27**. Fixes the critical middleware bypass CVE-2025-29927, which protected the admin
+    area, plus cache-poisoning and image-optimizer issues.
+  - nodemailer 6 → **10** (SMTP/header injection fixes).
+  - `postcss` pinned to 8.5.29 via an npm override.
+  - **Production dependencies: 0 known vulnerabilities** (`npm audit --omit=dev`).
+  - Remaining advisories are dev-only build tooling (Tailwind 3 / ESLint config glob and regex DoS). Fixing them
+    requires a Tailwind 4 migration. They aren't reachable by site visitors.
+- **Removed:**
+  - Unused packages: PayPal, Stripe.js, bcryptjs, formik, yup, reCAPTCHA.
+  - Legacy pages and retired API stubs.
+  - 19 unused AI and scaffold images.
+  - The old `/ideas` page (it redirects to `/shop`).
+- **Docs:** old style name removed; renamed `SITE_AUDIT.md` and `VERIFICATION.md`.
+- **CI:** `.github/workflows/ci.yml` runs the contrast check, production build (lint + types), and all Playwright
+  tests on every push to `main` and every pull request.
+- Verified: type-check ✅, lint 0 issues ✅, build ✅, 79/79 tests ✅ (one connection reset on the loaded machine
+  passed on rerun).

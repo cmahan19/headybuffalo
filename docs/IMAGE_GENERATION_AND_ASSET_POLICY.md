@@ -12,15 +12,17 @@ who didn't endorse us, or a result nobody got.
 | `product-photo` | Real photos of a real, owner-verified product | Product pages, cards, Product structured data, OG for that product |
 | `seller-photo` | Seller-supplied photos of their own listing, after moderation | That seller's listing only |
 | `partner-asset` | Images a partner has authorized us to use | That partner listing only |
-| `decorative` | Tie-dye textures, swirls, color bursts, doodles, patterns, backgrounds | Anywhere, as decoration only |
+| `decorative` | Landscape and contour textures, soft glows, patterns, backgrounds | Anywhere, as decoration only |
 | `concept-art` | Abstract art for an unlaunched product idea | Only on cards/pages labeled "Concept" and noindexed |
 | `brand` | Logo, wordmark, brand graphic | Anywhere |
 
-Generated images may **only** be `decorative` or `concept-art`.
+Generated images may **only** be `decorative`, `concept-art`, or `product-illustration`.
+
+**Product illustrations** (`public/products/illustrations/`, made by `scripts/generate-product-illustrations.mjs`) are flat vector drawings shown on made-to-order products until real photos exist. They are always labeled "Illustration" (caption and alt text), never used in Product structured data, and replaced by real photos before a product goes on online checkout.
 
 ## 2. Allowed uses for generated art
 
-Abstract tie-dye textures, ink and paper backgrounds, color bursts, swirls; neutral display pedestals
+Abstract landscape and topographic textures, paper backgrounds, soft color glows; neutral display pedestals
 with no product on them; abstract packaging-pattern concepts; section and empty-state illustrations;
 doodle/sticker icons (sun, swirl, flower, gift bow, plant pot, generic tote, bottle, or home
 silhouettes); category banner art; Open Graph backgrounds; moodboard textures; abstract concept-card
@@ -109,7 +111,7 @@ Any other asset class (photos, people, packaging) must be `approved` before use.
 
 Use with any image generator. Save the output to `public/art/`, then register it in the manifest.
 
-- **Tie-dye hero backdrop (16:9):** "Abstract premium tie-dye swirl background, cobalt blue, aqua,
+- **Hero backdrop (16:9):** "Abstract dark charcoal background with fine topographic contour lines and soft moss-green hills, a subtle teal glow, aqua,
   lime, coral, hot pink, violet, warm cream negative space in the center, fine paper texture, no
   text, no logos, no products, no people."
 - **Collection banner (3:1), ×6 palettes:** "Playful abstract psychedelic color burst, [PALETTE],
@@ -119,7 +121,7 @@ Use with any image generator. Save the output to `public/art/`, then register it
 - **Doodle stickers (transparent):** "Set of colorful hand-drawn sticker-style icons: abstract sun,
   swirl, gift bow, tote silhouette, bottle silhouette, plant pot, flower, rainbow arc; flat
   illustration, no text, no logos, transparent background."
-- **OG background (1200×630):** "Abstract tie-dye swirl in cobalt, pink, yellow, and violet with a
+- **OG background (1200×630):** "Abstract dark landscape with contour lines in charcoal, moss, and teal with a
   calm dark area on the left for text, no text, no logos, no people."
 
 Don't generate hands, people, or anything that could read as a real product. The brief's "maker-market

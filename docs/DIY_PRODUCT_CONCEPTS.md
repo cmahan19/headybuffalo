@@ -1,4 +1,4 @@
-# Product concepts (20), including hand-made DIY products
+# Product concepts (30), including hand-made DIY products
 
 > **CONCEPT ONLY — NOT AVAILABLE FOR PURCHASE**
 >
@@ -787,3 +787,475 @@ claim review · sample tested · MOQ known · contribution margin · return risk
 **Safety and quality**
 - Small parts and glass: not intended for children. Label accordingly.
 - Pack glass with tested protective packaging.
+
+---
+
+## 21. Macramé keychain
+
+**CONCEPT ONLY — NOT AVAILABLE FOR PURCHASE** · Status: `CONCEPT_ONLY`
+
+| | |
+| --- | --- |
+| Public name | Macramé keychain |
+| Description | A small knotted keychain with a tassel, in your choice of cord color. |
+| Category | Everyday Carry |
+| Product type | accessory, possible seller product |
+| DIY kit (extra requirements) | Yes |
+| Cross-sell | Macramé plant hanger |
+| Subscription suitability | none |
+| Marketplace suitability | good |
+| Affiliate suitability | unlikely |
+| Concept art | `concept-bg-01` (abstract pedestal, no product shown) |
+
+**Concept-specific validation notes**
+- Uses leftover cord from plant hangers.
+- Offer as add-on at checkout or in sets of three.
+
+**Owner decision needed:** Which colorways and ring hardware?
+
+### Make it yourself (Beginner, internal planning only)
+
+**Materials to source**
+- Macramé cord (record material from the supplier)
+- Split key rings
+- Optional wooden bead
+
+**Tools**
+- Scissors
+- Tape or clipboard to hold the work
+- Comb for the tassel
+
+**Steps**
+1. Cut four cords about 24 in long and fold them through the key ring.
+2. Tie 4-6 square knots.
+3. Add a bead if using, then wrap a gathering knot.
+4. Comb out the ends into a tassel and trim evenly.
+
+**Safety and quality**
+- Check ring hardware for sharp edges.
+- Small parts: not intended for young children.
+
+---
+
+## 22. Braided cord bracelet
+
+**CONCEPT ONLY — NOT AVAILABLE FOR PURCHASE** · Status: `CONCEPT_ONLY`
+
+| | |
+| --- | --- |
+| Public name | Braided cord bracelet |
+| Description | A braided cord bracelet with an adjustable sliding knot. No metal parts. |
+| Category | Gifts & Wrapping |
+| Product type | accessory, possible seller product |
+| DIY kit (extra requirements) | Yes |
+| Cross-sell | Macramé keychain |
+| Subscription suitability | none |
+| Marketplace suitability | good |
+| Affiliate suitability | unlikely |
+| Concept art | `concept-bg-02` (abstract pedestal, no product shown) |
+
+**Concept-specific validation notes**
+- Sell singles and stacks of three.
+- Adult sizes only.
+
+**Owner decision needed:** Which color combinations first?
+
+### Make it yourself (Beginner, internal planning only)
+
+**Materials to source**
+- Waxed cord or embroidery floss (record material from the supplier)
+
+**Tools**
+- Scissors
+- Tape or clipboard
+- Lighter or fray stop for cord ends (as the cord label allows)
+
+**Steps**
+1. Cut three strands and tape the top down.
+2. Braid to wrist length plus 2 in.
+3. Tie an adjustable sliding knot with a separate short cord.
+4. Knot and seal the ends as the cord manufacturer directs.
+
+**Safety and quality**
+- No metal parts (avoids metal-content rules for jewelry).
+- Not intended for children; label accordingly.
+
+---
+
+## 23. Block-printed greeting cards
+
+**CONCEPT ONLY — NOT AVAILABLE FOR PURCHASE** · Status: `CONCEPT_ONLY`
+
+| | |
+| --- | --- |
+| Public name | Block-printed greeting card set |
+| Description | A set of blank greeting cards printed by hand from carved blocks, with envelopes. |
+| Category | Gifts & Wrapping |
+| Product type | physical kit, bundle, possible seller product |
+| DIY kit (extra requirements) | Yes |
+| Cross-sell | Pressed-flower bookmark set |
+| Subscription suitability | seasonal |
+| Marketplace suitability | good |
+| Affiliate suitability | unlikely |
+| Concept art | `concept-bg-03` (abstract pedestal, no product shown) |
+
+**Concept-specific validation notes**
+- Designs must be original.
+- Sets of 4 or 6 with envelopes.
+
+**Owner decision needed:** Everyday designs, seasonal designs, or both?
+
+### Make it yourself (Beginner, internal planning only)
+
+**Materials to source**
+- Folded cardstock blanks with envelopes
+- Block printing ink
+- Carving blocks
+- Clear sleeves
+
+**Tools**
+- Carving tools
+- Brayer
+- Inking plate
+- Baren or wooden spoon
+
+**Steps**
+1. Carve an original design into the block (mirror-image).
+2. Roll ink thin and even on the plate, then onto the block.
+3. Press the card face down onto the block and burnish with the baren.
+4. Dry flat, then pair with envelopes and sleeve.
+
+**Safety and quality**
+- Carve away from your hands and use a bench hook.
+- Follow the ink label for drying and cleanup.
+
+---
+
+## 24. Stamped cotton bandana
+
+**CONCEPT ONLY — NOT AVAILABLE FOR PURCHASE** · Status: `CONCEPT_ONLY`
+
+| | |
+| --- | --- |
+| Public name | Stamped bandana |
+| Description | A square bandana stamped by hand with an original pattern. |
+| Category | Everyday Carry |
+| Product type | accessory, possible seller product |
+| DIY kit (extra requirements) | Yes |
+| Cross-sell | Hand-stamped canvas tote; pet bandana |
+| Subscription suitability | none |
+| Marketplace suitability | good |
+| Affiliate suitability | unlikely |
+| Concept art | `concept-bg-04` (abstract pedestal, no product shown) |
+
+**Concept-specific validation notes**
+- Uses the same stamps and ink as the canvas tote.
+- Wash-test before stating care.
+
+**Owner decision needed:** Which base colors?
+
+### Make it yourself (Beginner, internal planning only)
+
+**Materials to source**
+- Blank bandanas (record fiber content from the supplier)
+- Fabric ink
+
+**Tools**
+- Stamps
+- Foam brush
+- Cardboard backing
+- Iron
+
+**Steps**
+1. Press the blank flat over cardboard.
+2. Stamp the pattern in a grid or border.
+3. Dry, then heat-set as the ink label directs.
+4. Fold and band with a hang tag.
+
+**Safety and quality**
+- Follow the ink label for ventilation and heat-setting.
+- Only state care you have tested.
+
+---
+
+## 25. Embroidered tea towel
+
+**CONCEPT ONLY — NOT AVAILABLE FOR PURCHASE** · Status: `CONCEPT_ONLY`
+
+| | |
+| --- | --- |
+| Public name | Embroidered tea towel |
+| Description | A flour-sack style kitchen towel with a small hand-embroidered motif. |
+| Category | Home & Organization |
+| Product type | physical kit, possible seller product |
+| DIY kit (extra requirements) | Yes |
+| Cross-sell | Embroidered patch set |
+| Subscription suitability | seasonal |
+| Marketplace suitability | good |
+| Affiliate suitability | unlikely |
+| Concept art | `concept-bg-05` (abstract pedestal, no product shown) |
+
+**Concept-specific validation notes**
+- Keep motifs small (under 30 minutes of stitching).
+- Wash-test the floss colors.
+
+**Owner decision needed:** Which motifs: buffalo, botanicals, or seasonal?
+
+### Make it yourself (Beginner, internal planning only)
+
+**Materials to source**
+- Blank flour-sack towels (record fiber content)
+- Embroidery floss
+- Water-soluble transfer pen
+
+**Tools**
+- Embroidery hoop
+- Needles
+- Scissors
+- Iron
+
+**Steps**
+1. Wash and press the blank towel.
+2. Trace the motif near one corner with the transfer pen.
+3. Stitch with backstitch, satin stitch, and French knots.
+4. Rinse out the pen marks, dry, and press.
+
+**Safety and quality**
+- Only state washability you have tested.
+
+---
+
+## 26. Fabric scrunchie set
+
+**CONCEPT ONLY — NOT AVAILABLE FOR PURCHASE** · Status: `CONCEPT_ONLY`
+
+| | |
+| --- | --- |
+| Public name | Fabric scrunchie set |
+| Description | A set of three soft fabric scrunchies in coordinating colors. |
+| Category | Gifts & Wrapping |
+| Product type | accessory, bundle, possible seller product |
+| DIY kit (extra requirements) | Yes |
+| Cross-sell | Canvas zipper pouch |
+| Subscription suitability | seasonal |
+| Marketplace suitability | good |
+| Affiliate suitability | unlikely |
+| Concept art | `concept-bg-06` (abstract pedestal, no product shown) |
+
+**Concept-specific validation notes**
+- Great use of fabric scraps from bins and pouches.
+- About 15 minutes each once practiced.
+
+**Owner decision needed:** Which fabrics and color sets?
+
+### Make it yourself (Beginner, internal planning only)
+
+**Materials to source**
+- Fabric strips about 4 x 20 in (record fiber content)
+- 1/4 in elastic
+- Thread
+
+**Tools**
+- Sewing machine or needle
+- Safety pin
+- Scissors
+
+**Steps**
+1. Fold the strip lengthwise, right sides together, and sew the long edge.
+2. Turn right side out.
+3. Thread about 8 in of elastic through with a safety pin and tie or stitch the ends.
+4. Tuck one fabric end into the other and topstitch closed.
+
+**Safety and quality**
+- Not a toy: label as not intended for children.
+- List fabric contents exactly as the supplier labels them.
+
+---
+
+## 27. Canvas zipper pouch
+
+**CONCEPT ONLY — NOT AVAILABLE FOR PURCHASE** · Status: `CONCEPT_ONLY`
+
+| | |
+| --- | --- |
+| Public name | Canvas zipper pouch |
+| Description | A lined canvas pouch with a zipper for pens, cords, or small essentials. |
+| Category | Everyday Carry |
+| Product type | accessory, possible seller product |
+| DIY kit (extra requirements) | Yes |
+| Cross-sell | Embroidered patch set; hand-stamped canvas tote |
+| Subscription suitability | none |
+| Marketplace suitability | good |
+| Affiliate suitability | unlikely |
+| Concept art | `concept-bg-07` (abstract pedestal, no product shown) |
+
+**Concept-specific validation notes**
+- Stamp or patch the front to tie into other products.
+- One standard size first.
+
+**Owner decision needed:** Plain, stamped, or with a patch?
+
+### Make it yourself (Intermediate, internal planning only)
+
+**Materials to source**
+- Canvas
+- Lining fabric
+- Zipper
+- Thread
+
+**Tools**
+- Sewing machine with zipper foot
+- Rotary cutter
+- Clips
+- Iron
+
+**Steps**
+1. Cut two outer and two lining panels.
+2. Sandwich the zipper between outer and lining on each side and stitch.
+3. Open the zipper halfway, pin outer to outer and lining to lining, and sew around, leaving a gap in the lining.
+4. Box the corners, turn through the gap, close the gap, and press.
+
+**Safety and quality**
+- Check that zipper pulls and stops are secure.
+
+---
+
+## 28. Painted wooden ornaments
+
+**CONCEPT ONLY — NOT AVAILABLE FOR PURCHASE** · Status: `CONCEPT_ONLY`
+
+| | |
+| --- | --- |
+| Public name | Painted wooden ornament set |
+| Description | A set of hand-painted wooden ornaments with cotton hanging loops. |
+| Category | Gifts & Wrapping |
+| Product type | physical kit, bundle, possible seller product |
+| DIY kit (extra requirements) | Yes |
+| Cross-sell | Painted wooden coaster set |
+| Subscription suitability | seasonal |
+| Marketplace suitability | good |
+| Affiliate suitability | unlikely |
+| Concept art | `concept-bg-08` (abstract pedestal, no product shown) |
+
+**Concept-specific validation notes**
+- Seasonal demand peaks: build stock ahead of holidays.
+- Same paints and finish as the coasters.
+
+**Owner decision needed:** Which shapes and designs?
+
+### Make it yourself (Beginner, internal planning only)
+
+**Materials to source**
+- Unfinished wood shapes with pre-drilled holes
+- Acrylic paints
+- Clear finish
+- Cotton twine
+
+**Tools**
+- Fine sandpaper
+- Detail brushes
+- Drying rack
+
+**Steps**
+1. Sand the edges lightly and wipe off dust.
+2. Paint the base color, then the design details.
+3. Seal with clear finish as the label directs and let it cure.
+4. Thread twine loops and tie off.
+
+**Safety and quality**
+- Apply finishes in a ventilated area per the label.
+- Decorative only: not a toy.
+
+---
+
+## 29. Pet bandana
+
+**CONCEPT ONLY — NOT AVAILABLE FOR PURCHASE** · Status: `CONCEPT_ONLY`
+
+| | |
+| --- | --- |
+| Public name | Pet bandana |
+| Description | A triangle bandana that ties on over your pet's collar, stamped with an original pattern. |
+| Category | Everyday Carry |
+| Product type | accessory, possible seller product |
+| DIY kit (extra requirements) | Yes |
+| Cross-sell | Stamped bandana |
+| Subscription suitability | none |
+| Marketplace suitability | good |
+| Affiliate suitability | unlikely |
+| Concept art | `concept-bg-09` (abstract pedestal, no product shown) |
+
+**Concept-specific validation notes**
+- Sizes S/M/L: measure real collars.
+- Pairs with the stamped bandana for matching sets.
+
+**Owner decision needed:** Tie-on style or slip-over-collar style?
+
+### Make it yourself (Beginner, internal planning only)
+
+**Materials to source**
+- Cotton fabric (record fiber content)
+- Fabric ink
+- Thread
+
+**Tools**
+- Sewing machine
+- Stamps
+- Iron
+- Scissors
+
+**Steps**
+1. Cut a triangle in three sizes from a paper template.
+2. Stamp the pattern and heat-set as the ink label directs.
+3. Hem all edges (or sew two layers and turn).
+4. Press and add a size tag.
+
+**Safety and quality**
+- Include: supervise your pet while wearing; remove if chewed.
+- Only state care you have tested.
+
+---
+
+## 30. Hand-lettered art print
+
+**CONCEPT ONLY — NOT AVAILABLE FOR PURCHASE** · Status: `CONCEPT_ONLY`
+
+| | |
+| --- | --- |
+| Public name | Hand-lettered art print |
+| Description | An original hand-lettered and illustrated print, ready to frame. |
+| Category | Home & Organization |
+| Product type | physical kit, possible seller product |
+| DIY kit (extra requirements) | Yes |
+| Cross-sell | Block-printed greeting card set |
+| Subscription suitability | none |
+| Marketplace suitability | good |
+| Affiliate suitability | unlikely |
+| Concept art | `concept-bg-10` (abstract pedestal, no product shown) |
+
+**Concept-specific validation notes**
+- Original artwork only.
+- Print in-house or with a local print shop; ships flat in a rigid mailer.
+
+**Owner decision needed:** Which sizes (5x7, 8x10)?
+
+### Make it yourself (Beginner, internal planning only)
+
+**Materials to source**
+- Heavyweight print paper or cardstock
+- Clear sleeves
+- Rigid mailers
+
+**Tools**
+- Pens and brush markers for the original
+- Scanner or phone scanner app
+- Printer or print shop
+
+**Steps**
+1. Letter and illustrate the original.
+2. Scan at high resolution and clean up the file.
+3. Print on heavyweight paper; check the color against the original.
+4. Sleeve with a backing board and pack in a rigid mailer.
+
+**Safety and quality**
+- Original designs only; no quotes or characters you don't have rights to.

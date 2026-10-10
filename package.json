@@ -16,31 +16,27 @@
     "generate:art": "node scripts/generate-art.mjs"
   },
   "dependencies": {
-    "@paypal/react-paypal-js": "^8.8.1",
-    "@stripe/react-stripe-js": "^3.1.1",
-    "@stripe/stripe-js": "^5.5.0",
-    "bcryptjs": "^2.4.3",
-    "formik": "^2.4.6",
-    "next": "^15.1.6",
-    "nodemailer": "^6.10.0",
+    "next": "^15.5.27",
+    "nodemailer": "^10.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-google-recaptcha": "^3.1.0",
     "server-only": "^0.0.1",
-    "stripe": "^17.5.0",
-    "yup": "^1.4.0"
+    "stripe": "^17.5.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "1.56",
     "@types/node": "^20",
-    "@types/nodemailer": "^6.4.24",
+    "@types/nodemailer": "^8.0.2",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "15.0.2",
-    "postcss": "^8",
+    "eslint-config-next": "^15.5.27",
+    "postcss": "^8.5.29",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "overrides": {
+    "postcss": "$postcss"
   }
 }

@@ -95,8 +95,4 @@ ${list(d.safety)}
 }
 
 writeFileSync(join(root, "docs/DIY_PRODUCT_CONCEPTS.md"), md);
-writeFileSync(
-  join(root, "docs/TEN_DIY_PRODUCT_CONCEPTS.md"),
-  "# Moved\n\nThe concept catalog now has 20 entries and lives in [DIY_PRODUCT_CONCEPTS.md](DIY_PRODUCT_CONCEPTS.md).\n"
-);
 console.log(`Wrote docs/DIY_PRODUCT_CONCEPTS.md (${concepts.length} concepts)`);
