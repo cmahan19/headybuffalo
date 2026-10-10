@@ -25,7 +25,7 @@ before turning it on.
 
 ## What's intentionally missing, and why
 
-- **Seller logins.** These need the database/auth decision (see `COLORFUL_MARKETPLACE_AUDIT.md` §6).
+- **Seller logins.** These need the database/auth decision (see `SITE_AUDIT.md` §6).
   Until then only an admin can operate `/seller`.
 - **Persistence at scale.** Admin data is a JSON file (`HB_DATA_DIR`). It works on a server with a disk,
   not on read-only serverless hosts, where the UI says so. Move to Postgres before launch.

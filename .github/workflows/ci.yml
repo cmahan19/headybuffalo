@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Color contrast (WCAG AA)
+        run: npm run check:contrast
+
+      - name: Production build (includes lint and type-check)
+        run: npm run build
+
+      # The e2e tests drive the Google Chrome that GitHub's Ubuntu runners include (playwright.config.ts uses
+      # channel "chrome"), so no browser download is needed.
+      - name: Unit and browser tests
+        run: npx playwright test
+
+      - name: Upload test report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: test-results/
+          retention-days: 7

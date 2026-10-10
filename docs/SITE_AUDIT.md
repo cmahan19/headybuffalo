@@ -9,7 +9,7 @@ and what has to change to get there.
 | --- | --- |
 | `IMPLEMENTATION_PLAN.md`, `OWNER_REVIEW.md` | ✅ |
 | `SITE_AUDIT`, `ECOMMERCE_AUDIT`, `SEO_AUDIT`, `IMAGE_AUDIT`, `PRODUCT_CATALOG_AUDIT`, `CLAIMS_REVIEW`, `PRODUCT_LAUNCH_REQUIREMENTS`, `CONVERSION_BACKLOG`, `QA_CHECKLIST`, `FINAL_REPORT` | ❌ Never created. Their Phase 1–2 content is summarized in `IMPLEMENTATION_PLAN.md`. `IMAGE_AUDIT` is created in Phase C. |
-| `COLORFUL_MARKETPLACE_AUDIT.md` (this file), `IMAGE_GENERATION_AND_ASSET_POLICY.md` | ✅ Created in Phase A |
+| `SITE_AUDIT.md` (this file), `IMAGE_GENERATION_AND_ASSET_POLICY.md` | ✅ Created in Phase A |
 | `PRODUCT_CONCEPT_CATALOG`, `SUBSCRIPTION_PLAN`, `MARKETPLACE_SELLER_PLAN`, `AFFILIATE_PARTNER_PLAN` | ⏳ Written in Phases D, E, F, and G. Their architecture depends on the database/auth decision in §6, so writing them now would mean rewriting them later. |
 
 ## 2. Current stack
@@ -90,7 +90,7 @@ Persistence plugs in once the owner chooses.
 | `shirt.webp`, `file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg` | Leftover scaffolding | Unused. |
 
 **Image generation in this environment:** this agent session has **no image-generation tool**. The
-tie-dye system in Phase B is therefore built as **code-generated SVG/CSS art**. It's lighter than
+visual system in Phase B is therefore built as **code-generated SVG/CSS art**. It's lighter than
 raster images, resolution-independent, and can't depict a fake product. Raster assets (the brief's
 7-item set) can be produced by the owner with any image generator, using the prompts in
 `IMAGE_GENERATION_AND_ASSET_POLICY.md`, and registered through the asset manifest built in Phase C.
@@ -106,7 +106,7 @@ raster images, resolution-independent, and can't depict a fake product. Raster a
 
 ## 9. Color strategy
 
-**Direction:** calm cream/white/ink foundation; tie-dye color reserved for brand moments (hero,
+**Direction:** calm cream/white/ink foundation; strong color reserved for brand moments (hero,
 collection banners, promo modules, empty states, illustrations). Shopping surfaces (product cards,
 cart, checkout, prices, policies) stay on solid, high-contrast backgrounds. The palette comes from the
 real logo, which already has rainbow eye, ember horns, green triangle, blue nodes, and pink nose, so

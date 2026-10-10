@@ -26,7 +26,7 @@ npm run dev
 | Redirects for old URLs, security headers | `next.config.ts` |
 
 | Generated decorative art (procedural) and its metadata | `scripts/generate-art.mjs`, `public/art/generated/`, `src/lib/art-manifest.json` |
-| Tie-dye visual components | `src/app/components/tiedye/` |
+| Visual components (hero, banners, art) | `src/app/components/art/` |
 | Product concepts (exactly 10) and readiness gate | `src/lib/concepts.ts`, `src/lib/readiness.ts`, `/ideas`, `/admin/product-concepts` |
 | Private admin (needs `ADMIN_PASSWORD`) | `src/middleware.ts`, `src/app/admin/` |
 | Marketplace, subscriptions, affiliates (all flagged OFF) | `src/lib/marketplace/`, `src/lib/subscriptions.ts`, `src/lib/affiliate.ts`, `src/lib/flags.ts` |
@@ -39,6 +39,8 @@ npm test               # Playwright unit + browser tests (uses installed Chrome;
 npm run check:contrast # WCAG contrast for color tokens
 ```
 
-See [docs/COLORFUL_MARKETPLACE_VERIFICATION.md](docs/COLORFUL_MARKETPLACE_VERIFICATION.md) for routes to open and test coverage.
+The same checks run automatically on GitHub for every push to `main` and every pull request (`.github/workflows/ci.yml`).
+
+See [docs/VERIFICATION.md](docs/VERIFICATION.md) for routes to open and test coverage.
 
 Content rules: never add product facts, eco or health claims, reviews, ratings, discounts, or stock levels that the business can't substantiate.
