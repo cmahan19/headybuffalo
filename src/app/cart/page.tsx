@@ -1,134 +1,52 @@
 "use client";
 
-import { useCart } from "../context/CartContext"; // Import useCart hook
-import Image from "next/image"; // Use Next.js image component for better optimization
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // For redirecting to checkout page
+import Link from "next/link";
+import { useCart } from "../context/CartContext";
+import { CartLineList, CheckoutPanel } from "../components/CartLines";
+import EmptyStateGlow from "../components/art/EmptyStateGlow";
+import Skeleton from "../components/ui/Skeleton";
 
-const CartPage = () => {
-  const { cartItems, removeItemFromCart, changeItemQuantity, clearCart, cartTotal } = useCart();
-  const [totalPrice, setTotalPrice] = useState(0);
-  const router = useRouter(); // To handle navigation
-
-  const handleRemoveItem = (id: string) => {
-    removeItemFromCart(id);
-  };
-
-  const handleIncreaseQuantity = (id: string) => {
-    changeItemQuantity(id, 1); // Increase quantity by 1
-  };
-
-  const handleDecreaseQuantity = (id: string) => {
-    changeItemQuantity(id, -1); // Decrease quantity by 1
-  };
-
-  const handleClearCart = () => {
-    clearCart(); // Clear all items from the cart
-  };
-
-  const handleCheckout = () => {
-    if (cartItems.length === 0) {
-      alert("Your cart is empty! Please add some items before proceeding.");
-      return;
-    }
-    router.push("/checkout"); // Redirect to checkout page
-  };
-
-  // Group items with the same ID and accumulate quantities
-  const groupedItems = cartItems.reduce((acc, item) => {
-    const existingItem = acc.find((i) => i.id === item.id);
-    if (existingItem) {
-      existingItem.quantity += item.quantity;
-    } else {
-      acc.push({ ...item });
-    }
-    return acc;
-  }, []);
-
-  useEffect(() => {
-    const total = cartItems.reduce(
-      (sum, item) => sum + Number(item.price || 0) * item.quantity,
-      0
-    );
-    setTotalPrice(total);
-  }, [cartItems]);
+export default function CartPage() {
+  const { cartItems, hydrated } = useCart();
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold">Your Cart</h1>
-      <div className="mt-6">
-        {groupedItems.length > 0 ? (
-          <div>
-            <ul>
-              {groupedItems.map((item) => (
-                <li key={item.id} className="flex justify-between items-center mt-4">
-                  <div className="flex items-center">
-                    <Image
-                      src={item.image || "/fallback-image.jpg"} // Fallback if no image
-                      alt={item.name}
-                      width={50}
-                      height={50}
-                      className="mr-4 object-cover rounded-md"
-                    />
-                    <div>
-                      <p className="font-semibold">{item.name}</p>
-                      <p className="text-gray-600 text-sm">
-                        ${Number(item.price || 0).toFixed(2)} each
-                      </p>
-                      <p className="text-gray-700 text-sm">x {item.quantity}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <button
-                      onClick={() => handleIncreaseQuantity(item.id)}
-                      className="bg-green-500 text-white px-2 py-1 rounded-md"
-                    >
-                      +
-                    </button>
-                    <button
-                      onClick={() => handleDecreaseQuantity(item.id)}
-                      className="bg-yellow-500 text-white px-2 py-1 rounded-md"
-                    >
-                      -
-                    </button>
-                    <button
-                      onClick={() => handleRemoveItem(item.id)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
+    <div className="container-page py-8 sm:py-12">
+      <h1 className="text-display-sm sm:text-display-md">Your cart</h1>
 
-            {/* Total Price */}
-            <div className="mt-4 text-xl font-semibold">
-              <p>Total: ${totalPrice.toFixed(2)}</p>
-            </div>
-
-            {/* Checkout button */}
-            <div className="mt-6 flex justify-between items-center">
-              <button
-                onClick={handleCheckout}
-                className="bg-blue-500 text-white px-6 py-2 rounded-md"
-              >
-                Proceed to Checkout
-              </button>
-              <button
-                onClick={handleClearCart}
-                className="text-red-500 hover:text-red-700"
-              >
-                Clear Cart
-              </button>
-            </div>
-          </div>
+      <div className="mt-8">
+        {!hydrated ? (
+          <Skeleton className="h-40" />
+        ) : cartItems.length === 0 ? (
+          <EmptyStateGlow
+            title="Your cart is empty."
+            glow="glow-accent"
+            actions={
+              <Link href="/shop" className="btn-primary">
+                Browse products
+              </Link>
+            }
+          />
         ) : (
-          <p>Your cart is empty!</p>
+          <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
+            <div className="card">
+              <CartLineList />
+            </div>
+            <aside aria-labelledby="summary-heading" className="panel h-fit lg:sticky lg:top-28">
+              <h2 id="summary-heading" className="mb-4 text-lg font-semibold">
+                Order summary
+              </h2>
+              <CheckoutPanel />
+              <p className="mt-4 text-center text-xs text-hb-ink/60">
+                See{" "}
+                <Link href="/shipping-returns" className="underline">
+                  shipping &amp; returns
+                </Link>
+                .
+              </p>
+            </aside>
+          </div>
         )}
       </div>
     </div>
   );
-};
-
-export default CartPage;
+}

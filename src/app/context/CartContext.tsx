@@ -1,129 +1,151 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { getProduct, isPurchasable } from "@/lib/catalog";
 
-// Define types for cart items and context
-interface CartItem {
+// Cart lines store only the product slug (as `id`) and quantity as the source of truth.
+// Name/price/image are copied for display but are always re-derived from the catalog,
+// and the server re-prices everything at checkout.
+export interface CartItem {
   id: string;
   name: string;
-  price: number;
+  price: number; // dollars, display only
   quantity: number;
-  image?: string; // Optional image property for cart items
+  image?: string;
 }
 
 interface CartContextType {
   cartItems: CartItem[];
   cartCount: number;
   cartTotal: number;
-  addItemToCart: (item: CartItem) => void;
+  hydrated: boolean;
+  addItemToCart: (item: Pick<CartItem, "id" | "quantity">) => void;
   removeItemFromCart: (id: string) => void;
-  changeItemQuantity: (id: string, quantity: number) => void;
+  changeItemQuantity: (id: string, quantityChange: number) => void;
+  setItemQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
-  setCartItems: (items: CartItem[]) => void; // Optionally allow direct modification of cart
+  setCartItems: (items: CartItem[]) => void;
+  /** Cart drawer visibility. */
+  isCartOpen: boolean;
+  openCart: () => void;
+  closeCart: () => void;
+  /** Last cart change, announced to screen readers. */
+  announcement: string;
 }
+
+const STORAGE_KEY = "hb_cart_v2";
+export const MAX_QTY = 20;
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [cartCount, setCartCount] = useState(0); // Track the number of items
-  const [cartTotal, setCartTotal] = useState(0); // Track the total cost
+function normalize(items: { id: string; quantity: number }[]): CartItem[] {
+  const merged = new Map<string, number>();
+  for (const { id, quantity } of items) {
+    const q = Math.floor(Number(quantity));
+    if (typeof id !== "string" || !Number.isFinite(q) || q < 1) continue;
+    merged.set(id, Math.min(MAX_QTY, (merged.get(id) ?? 0) + q));
+  }
+  const out: CartItem[] = [];
+  for (const [id, quantity] of merged) {
+    const p = getProduct(id);
+    if (!p || !isPurchasable(p)) continue;
+    out.push({ id, quantity, name: p.name, price: p.offer.priceCents / 100, image: p.image.src });
+  }
+  return out;
+}
 
-  // Load cart from localStorage on component mount
-  useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
-    if (storedCart) {
-      try {
-        const parsedCart: CartItem[] = JSON.parse(storedCart);
-        setCartItems(parsedCart);
-        updateCartSummary(parsedCart);
-      } catch (error) {
-        console.error("Failed to load cart from localStorage", error);
-        localStorage.removeItem("cart");
-        setCartItems([]);
-      }
+function readStorage(): CartItem[] {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    return raw ? normalize(JSON.parse(raw)) : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeStorage(items: CartItem[]) {
+  try {
+    if (items.length) {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(items.map(({ id, quantity }) => ({ id, quantity })))
+      );
+    } else {
+      window.localStorage.removeItem(STORAGE_KEY);
     }
+  } catch {
+    // Storage unavailable (private mode, blocked); the cart still works for this page view.
+  }
+}
+
+export const CartProvider = ({ children }: { children: React.ReactNode }) => {
+  const [cartItems, setItems] = useState<CartItem[]>([]);
+  const [hydrated, setHydrated] = useState(false);
+  const [isCartOpen, setCartOpen] = useState(false);
+  const [announcement, setAnnouncement] = useState("");
+  const openCart = useCallback(() => setCartOpen(true), []);
+  const closeCart = useCallback(() => setCartOpen(false), []);
+
+  useEffect(() => {
+    setItems(readStorage());
+    setHydrated(true);
+    // Keep multiple tabs in sync.
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY) setItems(readStorage());
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
 
-  // Helper function to update the cart summary (item count and total price)
-  const updateCartSummary = (updatedCart: CartItem[]) => {
-    const totalItems = updatedCart.reduce((total, item) => total + item.quantity, 0);
-    const totalPrice = updatedCart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const commit = useCallback((next: { id: string; quantity: number }[], message = "") => {
+    const normalized = normalize(next);
+    writeStorage(normalized);
+    setItems(normalized);
+    if (message) setAnnouncement(message);
+  }, []);
 
-    setCartCount(totalItems);
-    setCartTotal(totalPrice);
-  };
+  const value = useMemo<CartContextType>(() => {
+    const nameOf = (id: string) => cartItems.find((i) => i.id === id)?.name ?? getProduct(id)?.name ?? "Item";
+    const setItemQuantity = (id: string, quantity: number) =>
+      commit(
+        quantity < 1
+          ? cartItems.filter((i) => i.id !== id)
+          : cartItems.map((i) => (i.id === id ? { ...i, quantity: Math.min(MAX_QTY, quantity) } : i)),
+        quantity < 1 ? `${nameOf(id)} removed from cart.` : `${nameOf(id)} quantity ${Math.min(MAX_QTY, quantity)}.`
+      );
 
-  // Add item to the cart, if it exists, increase quantity, else add new item
-  const addItemToCart = (item: CartItem) => {
-    const updatedCart = [...cartItems];
-    const existingItem = updatedCart.find((cartItem) => cartItem.id === item.id);
-
-    if (existingItem) {
-      existingItem.quantity += item.quantity;
-    } else {
-      updatedCart.push(item);
-    }
-
-    updateLocalStorage(updatedCart);
-  };
-
-  // Remove item from the cart by its ID
-  const removeItemFromCart = (id: string) => {
-    const updatedCart = cartItems.filter((item) => item.id !== id);
-    updateLocalStorage(updatedCart);
-  };
-
-  // Change the quantity of an item in the cart (can be positive or negative)
-  const changeItemQuantity = (id: string, quantityChange: number) => {
-    const updatedCart = cartItems.map((item) => {
-      if (item.id === id) {
-        const newQuantity = item.quantity + quantityChange;
-        // Prevent quantity from being less than 1
-        if (newQuantity >= 1) {
-          return { ...item, quantity: newQuantity };
-        }
-      }
-      return item;
-    });
-
-    updateLocalStorage(updatedCart);
-  };
-
-  // Clear the cart entirely
-  const clearCart = () => {
-    setCartItems([]);
-    localStorage.removeItem("cart");
-    setCartCount(0);
-    setCartTotal(0);
-  };
-
-  // Update localStorage and state to reflect changes
-  const updateLocalStorage = (updatedCart: CartItem[]) => {
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setCartItems(updatedCart);
-    updateCartSummary(updatedCart);
-  };
+    return {
+      cartItems,
+      hydrated,
+      cartCount: cartItems.reduce((n, i) => n + i.quantity, 0),
+      cartTotal: cartItems.reduce((n, i) => n + i.price * i.quantity, 0),
+      addItemToCart: (item) =>
+        commit([...cartItems, { id: item.id, quantity: item.quantity }], `${nameOf(item.id)} added to cart.`),
+      removeItemFromCart: (id) => commit(cartItems.filter((i) => i.id !== id), `${nameOf(id)} removed from cart.`),
+      changeItemQuantity: (id, delta) => {
+        const current = cartItems.find((i) => i.id === id);
+        if (current) setItemQuantity(id, Math.max(1, current.quantity + delta));
+      },
+      setItemQuantity,
+      clearCart: () => commit([]),
+      setCartItems: (items) => commit(items),
+      isCartOpen,
+      openCart,
+      closeCart,
+      announcement,
+    };
+  }, [cartItems, hydrated, commit, isCartOpen, openCart, closeCart, announcement]);
 
   return (
-    <CartContext.Provider
-      value={{
-        cartItems,
-        cartCount,
-        cartTotal,
-        addItemToCart,
-        removeItemFromCart,
-        changeItemQuantity,
-        clearCart,
-        setCartItems, // Optional: Allows direct modification of the cart from anywhere
-      }}
-    >
+    <CartContext.Provider value={value}>
       {children}
+      <p className="sr-only" role="status" aria-live="polite">
+        {announcement}
+      </p>
     </CartContext.Provider>
   );
 };
 
-// Custom hook to use cart context
 export const useCart = (): CartContextType => {
   const context = useContext(CartContext);
   if (!context) {

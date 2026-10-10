@@ -2,20 +2,212 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Single light theme on a warm natural base, with black-chrome surfaces and color used as accents.
+   Components set their own surfaces explicitly. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  /* Heady Buffalo color tokens (RGB channels so Tailwind opacity modifiers work).
+     Contrast is verified by scripts/check-contrast.mjs; run it after changing any value. */
+
+  /* Natural foundation */
+  --hb-bone: 247 244 237; /* page background */
+  --hb-sand: 231 220 199;
+  --hb-stone: 214 208 196; /* hairlines, quiet borders */
+  --hb-sage: 143 163 134;
+  --hb-moss: 63 93 58; /* primary natural accent; carries white text */
+  --hb-olive: 107 112 59;
+  --hb-clay: 168 90 58; /* earthy accent; carries white text */
+
+  /* Black chrome */
+  --hb-ink: 24 24 27; /* near-black charcoal for text */
+  --hb-charcoal: 18 18 20;
+  --hb-chrome-light: 232 234 237;
+  --hb-chrome-mid: 160 164 171;
+  --hb-chrome-dark: 58 60 66;
+
+  /* Color accents (used sparingly, never as large text-bearing fields except the solid fills below) */
+  --hb-blue: 31 111 255;
+  --hb-cobalt: 29 78 216;
+  --hb-aqua: 34 211 238;
+  --hb-teal: 13 148 136;
+  --hb-lime: 163 230 53;
+  --hb-yellow: 250 204 21;
+  --hb-orange: 249 115 22;
+  --hb-coral: 251 113 133;
+  --hb-pink: 236 72 153;
+  --hb-berry: 190 24 93;
+  --hb-violet: 139 92 246;
+  --hb-indigo: 49 46 129;
+
+  /* Text-safe deep variants (>= 4.5:1 on bone and white). */
+  --hb-blue-deep: 29 78 216;
+  --hb-teal-deep: 15 118 110;
+  --hb-orange-deep: 194 65 12;
+  --hb-pink-deep: 190 24 93;
+  --hb-violet-deep: 109 40 217;
+  --hb-lime-deep: 63 98 18;
+
+  /* Surfaces (kept for existing components) */
+  --hb-cream: 247 244 237;
+  --hb-surface: 255 255 255;
+  --hb-surface-muted: 240 236 227;
+  --hb-border: 24 24 27; /* use at /10 to /20 opacity */
+
+  /* Status */
+  --hb-success: 21 128 61;
+  --hb-warning: 180 83 9;
+  --hb-error: 180 35 24;
+
+  /* Gradients (decorative surfaces only; never behind body text). */
+  --hb-gradient-chrome: linear-gradient(160deg, #3b3d42 0%, #1b1c1f 38%, #0e0e10 62%, #26272b 100%);
+  --hb-gradient-chrome-line: linear-gradient(90deg, transparent, #8d9198 15%, #eceef1 50%, #8d9198 85%, transparent);
+  --hb-gradient-accent: linear-gradient(90deg, rgb(var(--hb-moss)), rgb(var(--hb-sage)), rgb(var(--hb-teal)), rgb(var(--hb-aqua)), rgb(var(--hb-yellow)), rgb(var(--hb-clay)));
+  --hb-gradient-natural: linear-gradient(135deg, rgb(var(--hb-sand)), rgb(var(--hb-bone)) 55%, rgb(var(--hb-sage) / 0.35));
+  --hb-shadow-soft: 0 1px 2px rgb(24 24 27 / 0.06), 0 8px 24px -12px rgb(24 24 27 / 0.18);
+  --hb-shadow-lift: 0 2px 4px rgb(24 24 27 / 0.08), 0 18px 40px -16px rgb(24 24 27 / 0.32);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+html.scroll-locked {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* Native <dialog> backdrop for drawers. */
+dialog.drawer::backdrop {
+  background: rgb(11 11 11 / 0.55);
+  animation: fade-in 180ms ease-out;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@layer base {
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-hb-moss;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-page px-4 sm:px-6;
+  }
+  .eyebrow {
+    @apply text-eyebrow uppercase;
+  }
+
+  /* Buttons. Hover never moves a button (movement under the pointer causes hover jitter). */
+  .btn {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-lg {
+    @apply min-h-[52px] px-7 text-base;
+  }
+  /* Primary: black chrome. */
+  .btn-primary {
+    @apply btn text-white focus-visible:outline-hb-ink;
+    background-image: linear-gradient(180deg, #3a3c41 0%, #1c1d20 48%, #0c0c0e 100%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22), inset 0 0 0 1px rgb(255 255 255 / 0.08), 0 1px 2px rgb(0 0 0 / 0.35);
+  }
+  .btn-primary:hover {
+    background-image: linear-gradient(180deg, #4a4d53 0%, #26272b 48%, #131315 100%);
+  }
+  /* Secondary: clean white with a fine border. */
+  .btn-secondary {
+    @apply btn border border-hb-ink/20 bg-white text-hb-ink hover:border-hb-ink/50 focus-visible:outline-hb-ink;
+  }
+  /* Accent: moss green. */
+  .btn-accent {
+    @apply btn bg-hb-moss text-white hover:bg-hb-olive focus-visible:outline-hb-moss;
+  }
+  /* Outline on dark/chrome surfaces. */
+  .btn-on-dark {
+    @apply btn border border-white/35 text-white hover:border-white hover:bg-white/10 focus-visible:outline-white;
+  }
+  .btn-light {
+    @apply btn bg-white text-hb-ink hover:bg-hb-chrome-light focus-visible:outline-white;
+  }
+  .btn-link {
+    @apply inline-flex min-h-[44px] items-center font-semibold text-hb-moss underline-offset-4 hover:underline;
+  }
+
+  /* Surfaces */
+  .card {
+    @apply rounded-card bg-white ring-1 ring-hb-ink/5;
+    box-shadow: var(--hb-shadow-soft);
+  }
+  .surface-card {
+    @apply rounded-panel border border-hb-stone bg-white;
+    box-shadow: var(--hb-shadow-soft);
+  }
+  .panel {
+    @apply rounded-panel border border-hb-stone bg-white p-6 sm:p-8;
+  }
+  /* Black chrome panel: dark brushed gradient with a fine metallic edge. Text on it is white. */
+  .chrome-surface {
+    @apply relative overflow-hidden text-white;
+    background-image: var(--hb-gradient-chrome);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), inset 0 0 0 1px rgb(255 255 255 / 0.06);
+  }
+  .chrome-line {
+    background-image: var(--hb-gradient-chrome-line);
+  }
+  .accent-line {
+    background-image: var(--hb-gradient-accent);
+  }
+  /* Metallic headline text. Only on dark surfaces. */
+  .chrome-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(180deg, #ffffff 0%, #e4e6ea 45%, #a9adb4 100%);
+  }
+
+  /* Form controls. Pair `.field` with aria-invalid for the error state. */
+  .field {
+    @apply block w-full rounded-lg border border-hb-ink/20 bg-white px-3 py-2.5 text-base text-hb-ink placeholder:text-hb-ink/40 focus:border-hb-moss focus:outline-none focus:ring-2 focus:ring-hb-moss/30 aria-[invalid=true]:border-danger aria-[invalid=true]:ring-danger/20;
+  }
+  .field-label {
+    @apply text-sm font-medium text-hb-ink;
+  }
+  .field-error {
+    @apply mt-1 text-sm text-danger;
+  }
+
+  /* Pill navigation (collection filters). */
+  .pill {
+    @apply inline-flex min-h-[44px] items-center rounded-full border border-hb-ink/15 bg-white px-4 text-sm font-medium transition hover:border-hb-moss hover:text-hb-moss;
+  }
+  .pill-active {
+    @apply inline-flex min-h-[44px] items-center rounded-full bg-hb-ink px-4 text-sm font-semibold text-white;
+  }
+
+  .prose-hb p {
+    @apply mb-4 leading-relaxed text-hb-ink/80;
+  }
+  .prose-hb h2 {
+    @apply mb-3 mt-8 text-xl font-semibold text-hb-ink;
+  }
+  .prose-hb ul {
+    @apply mb-4 list-disc space-y-1 pl-6 text-hb-ink/80;
+  }
+  .prose-hb a {
+    @apply font-medium text-hb-moss underline underline-offset-2 hover:text-hb-olive;
+  }
 }

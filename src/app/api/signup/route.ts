@@ -1,41 +1,8 @@
-import { NextResponse } from 'next/server';
-import bcrypt from 'bcryptjs';
+import { NextResponse } from "next/server";
 
-interface SignupRequest {
-  email: string;
-  password: string;
-}
-
-// Simulating an in-memory "database" for demo purposes
-let users: { email: string; password: string }[] = [];
-
-export async function POST(request: Request) {
-  const { email, password }: SignupRequest = await request.json();
-
-  // Validation: Ensure email and password are provided
-  if (!email || !password) {
-    return NextResponse.json(
-      { message: 'Email and password are required.' },
-      { status: 400 }
-    );
-  }
-
-  // Check if the email already exists in the "database"
-  if (users.find((user) => user.email === email)) {
-    return NextResponse.json(
-      { message: 'Email already exists.' },
-      { status: 400 }
-    );
-  }
-
-  // Hash the password before storing it
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  // Save the new user (in-memory for now)
-  users.push({ email, password: hashedPassword });
-
-  return NextResponse.json(
-    { message: 'User signed up successfully.' },
-    { status: 201 }
-  );
+// Retired endpoint. It trusted client-supplied data (prices/amounts or credentials) and has been
+// replaced by /api/checkout, which prices orders from the server-side catalog.
+// Safe to delete this file.
+export function POST() {
+  return NextResponse.json({ error: "This endpoint has been retired." }, { status: 410 });
 }
