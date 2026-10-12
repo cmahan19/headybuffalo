@@ -19,8 +19,8 @@ export const site = {
     e164: "+1-888-509-8502",
   },
 
-  // OWNER-REVIEW: public support inbox. Leave empty to hide the address and rely on the contact form.
-  supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "",
+  // Public support inbox. Mail to any @headybuffalo.com address is forwarded by SES to the owner's inbox.
+  supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "hello@headybuffalo.com",
 
   // OWNER-REVIEW: confirm each account exists and is owned by the business.
   social: [

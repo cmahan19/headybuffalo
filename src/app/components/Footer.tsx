@@ -46,6 +46,13 @@ export default function Footer() {
               {site.phone.display}
             </a>
           </p>
+          {site.supportEmail && (
+            <p className="mt-1">
+              <a href={`mailto:${site.supportEmail}`} className="text-sm text-white hover:text-hb-sage">
+                {site.supportEmail}
+              </a>
+            </p>
+          )}
           {site.social.length > 0 && (
             <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
               {site.social.map((s) => (

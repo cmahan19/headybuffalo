@@ -53,6 +53,7 @@ const organizationLd = {
   contactPoint: {
     "@type": "ContactPoint",
     telephone: site.phone.e164,
+    ...(site.supportEmail && { email: site.supportEmail }),
     contactType: "customer service",
     areaServed: "US",
     availableLanguage: "English",
