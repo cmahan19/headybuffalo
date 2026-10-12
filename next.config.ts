@@ -18,6 +18,13 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // One canonical host: www.headybuffalo.com → headybuffalo.com.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.headybuffalo.com" }],
+        destination: "https://headybuffalo.com/:path*",
+        permanent: true,
+      },
       // Old numeric product URLs from the previous site. Their products are unpublished drafts, so send
       // visitors to the shop. When a product is verified, point its old id at its slug with permanent: true.
       { source: "/products/:id(\\d+)", destination: "/shop", permanent: false },
